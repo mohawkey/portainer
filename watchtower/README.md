@@ -1,8 +1,9 @@
-Repository URL: https://github.com/mohawkey/portainer
+# Docker watchtower docker-compose.yml
 
-Repository reference:
+## Repository Settings
+> Repository URL: ht<span></span>tps://github.com/mohawkey/portainer  
+> Repository reference:  
+> Compose path: watchtower/docker-compose.yml  
 
-Compose path: watchtower/docker-compose.yml
-
-Environment variables
-- POLL_INTERVAL : 1800
+## Environment variables
+> - POLL_INTERVAL : 1800
