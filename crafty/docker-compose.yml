@@ -19,7 +19,7 @@ services:
       - "25500-25600:25500-25600"
     volumes:
       - crafy-data/backups:/crafty/backups
-      - crafy-datay/logs:/crafty/logs
+      - crafy-data/logs:/crafty/logs
       - crafy-data/servers:/crafty/servers
       - crafy-data/config:/crafty/app/config
       - crafy-data/import:/crafty/import
