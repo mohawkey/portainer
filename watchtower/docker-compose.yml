@@ -6,7 +6,7 @@ services:
     container_name: watchtower-core
     restart: always
     environment:
-      - TZ="Europe/Brussels"
+      - TZ=Europe/Brussels
       - WATCHTOWER_POLL_INTERVAL=${POLL_INTERVAL}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
