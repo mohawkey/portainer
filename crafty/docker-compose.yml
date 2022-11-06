@@ -18,8 +18,8 @@ services:
       - "19132:19132/udp"
       - "25500-25600:25500-25600"
     volumes:
-      - crafy-data/backups:/crafty/backups
-      - crafy-data/logs:/crafty/logs
-      - crafy-data/servers:/crafty/servers
-      - crafy-data/config:/crafty/app/config
-      - crafy-data/import:/crafty/import
+      - crafy-data:/crafty/backups
+      - crafy-data:/crafty/logs
+      - crafy-data:/crafty/servers
+      - crafy-data:/crafty/app/config
+      - crafy-data:/crafty/import
