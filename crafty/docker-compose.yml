@@ -1,16 +1,12 @@
 version: "3.9"
 
-volumes:
-  crafy-data:
-    driver: local
-    
 services:
   crafty:
     container_name: crafty-core
     image: registry.gitlab.com/crafty-controller/crafty-4:latest
     restart: always
     environment:
-      - TZ=Etc/UTC
+      - TZ=Europe/Brussels
     ports:
       - "8000:8000"
       - "8443:8443"
@@ -18,8 +14,8 @@ services:
       - "19132:19132/udp"
       - "25500-25600:25500-25600"
     volumes:
-      - crafy-data:/crafty/backups
-      - crafy-data:/crafty/logs
-      - crafy-data:/crafty/servers
-      - crafy-data:/crafty/app/config
-      - crafy-data:/crafty/import
+      - /docker/crafty/backups:/crafty/backups
+      - /docker/crafty/logs:/crafty/logs
+      - /docker/crafty/servers:/crafty/servers
+      - /docker/crafty/app/config:/crafty/app/config
+      - /docker/crafty/import:/crafty/import
