@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  core:
+  watchtower:
     image: containrrr/watchtower:latest
-    container_name: app
+    container_name: watchtower-core
     restart: always
     environment:
       - TZ="Europe/Brussels"
