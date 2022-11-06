@@ -1,5 +1,9 @@
 version: "3.9"
 
+volumes:
+  crafy-data:
+    driver: local
+    
 services:
   crafty:
     container_name: crafty-core
@@ -14,8 +18,8 @@ services:
       - "19132:19132/udp"
       - "25500-25600:25500-25600"
     volumes:
-      - /docker/crafty/backups:/crafty/backups
-      - /docker/crafty/logs:/crafty/logs
-      - /docker/crafty/servers:/crafty/servers
-      - /docker/crafty/config:/crafty/app/config
-      - /docker/crafty/import:/crafty/import
+      - crafy-data/backups:/crafty/backups
+      - crafy-datay/logs:/crafty/logs
+      - crafy-data/servers:/crafty/servers
+      - crafy-data/config:/crafty/app/config
+      - crafy-data/import:/crafty/import
