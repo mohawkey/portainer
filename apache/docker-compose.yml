@@ -8,4 +8,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - /docker/website:/usr/local/apache2/htdocs
     network_mode: "bridge"
