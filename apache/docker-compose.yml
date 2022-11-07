@@ -10,3 +10,6 @@ services:
       - "443:443"
     networks:
       - bridge
+
+networkd:
+  - bridge
