@@ -8,8 +8,4 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    networks:
-      - bridge
-
-networks:
-  - bridge
+    network_mode: "bridge"
