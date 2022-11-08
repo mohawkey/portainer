@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    links:
+     - mariadb:mysql
+    environment:
+     - WORDPRESS_DB_PASSWORD=password
+     - WORDPRESS_DB_USER=root
+    ports:
+     - "80:80"
+    volumes:
+     - /docker/wordpress/html:/var/www/html
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    environment:
+     - MYSQL_ROOT_PASSWORD=password
+     - MYSQL_DATABASE=wordpress
+    volumes:
+     - /docker/wordpress/database:/var/lib/mysql
