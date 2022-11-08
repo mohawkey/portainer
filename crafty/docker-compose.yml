@@ -1,5 +1,9 @@
 version: "3.9"
 
+networks:
+  crafty-network:
+    name: crafty-net
+  
 services:
   crafty:
     container_name: crafty-core
@@ -10,12 +14,12 @@ services:
     ports:
       - "8000:8000"
       - "8443:8443"
-      - "8123:8123"
-      - "19132:19132/udp"
-      - "25500-25600:25500-25600"
+      - "25565:25565"
     volumes:
       - /docker/crafty/backups:/crafty/backups
       - /docker/crafty/logs:/crafty/logs
       - /docker/crafty/servers:/crafty/servers
       - /docker/crafty/app/config:/crafty/app/config
       - /docker/crafty/import:/crafty/import
+    networks:
+      - crafty-network
