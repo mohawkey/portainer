@@ -3,7 +3,7 @@ version: "3.9"
 services:
   httpd:
     image: httpd:latest
-    container_name: web-public-1
+    container_name: web-public
     restart: always
     ports:
       - "80:80"
