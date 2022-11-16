@@ -21,7 +21,7 @@ services:
   site1:
     image: "traefik/whoami"
     container_name: "simple-service-1"
-    restart: unless-stopped
+    restart: "unless-stopped"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.site1.rule=Host(`site1.home.io`)"
@@ -30,7 +30,7 @@ services:
   site2:
     image: "traefik/whoami"
     container_name: "simple-service-2"
-    restart: unless-stopped
+    restart: "unless-stopped"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.site2.rule=Host(`site2.home.io`)"
