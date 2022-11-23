@@ -1,1 +1,15 @@
+version: "3.9"
 
+volumes:
+  (volume-name):
+    driver: local
+    
+services:
+  (service-name):
+    image:(image): (version)
+    container_name: (name)
+    restart: (always:unless-stopped:on-failure)
+    ports:
+      - "80:80"
+    volumes:
+      - (volume-name):/path/path/path
