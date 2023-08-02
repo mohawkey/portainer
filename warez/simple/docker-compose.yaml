@@ -1,0 +1,45 @@
+version: "2.1"
+
+networks:
+  warez-network:
+    name: warez-net
+    
+services:
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - WEBUI_PORT=8090
+    volumes:
+      - /docker/qbittorrent/config:/config
+      - /mnt/samba-disk/qbittorrent/downloads:/downloads
+      # - /mnt/samba-disk/public:/watched
+    ports:
+      - 8090:8090
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - warez-network
+    
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+    volumes:
+      - /docker/sabnzbd/config:/config
+      - /mnt/samba-disk/sabnzbd/downloads:/downloads
+      - /mnt/samba-disk/sabnzbd/incomplete-downloads:/incomplete-downloads
+      # - /mnt/samba-disk/public:/watched
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    networks:
+      - warez-network 
