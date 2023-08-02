@@ -1,0 +1,140 @@
+version: "2.1"
+
+networks:
+  warez-network:
+    name: warez-net
+    
+services:
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - WEBUI_PORT=8090
+    volumes:
+      - /docker/qbittorrent/config:/config
+      - /mnt/samba-disk/qbittorrent/downloads:/downloads
+      # - /mnt/samba-disk/public:/watched
+    ports:
+      - 8090:8090
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - warez-network
+    
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+    volumes:
+      - /docker/sabnzbd/config:/config
+      - /mnt/samba-disk/sabnzbd/downloads:/downloads
+      - /mnt/samba-disk/sabnzbd/incomplete-downloads:/incomplete-downloads
+      - /mnt/samba-disk/public:/watched
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    networks:
+      - warez-network
+  
+  # Indexer
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - AUTO_UPDATE=true #optional
+      - RUN_OPTS= #optional
+    volumes:
+      - /docker/jackett/data:/config
+      - /docker/jackett/blackhole:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+    networks:
+      - warez-network
+      
+  # Movies
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+    volumes:
+      - /docker/radarr/data:/config
+      - /mnt/samba-disk/radarr/downloads:/downloads
+      # - /docker/radarr/data/downloads:/downloads
+      # - /path/to/movies:/movies #optional
+      # - /path/to/downloadclient-downloads:/downloads #optional
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    networks:
+      - warez-network
+  
+  # TV Series
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+    volumes:
+      - /docker/sonarr/config:/config
+      # - /mnt/samba-disk/sonarr/downloads:/downloads
+      # - /docker/sonarr/tvseries:/tv
+      # - /path/to/downloadclient-downloads:/downloads #optional
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    networks:
+      - warez-network
+      
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /docker/bazarr/config:/config
+      # - /path/to/movies:/movies #optional
+      # - /path/to/tv:/tv #optional
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    networks:
+      - warez-network
+  
+  # e-books
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+    volumes:
+      - /docker/readarr/config:/config
+      - /docker/readarr/root:/root
+      - /mnt/samba-disk/readarr/downloads:/downloads
+      - /mnt/samba-disk/readarr/root/downloads:/books
+      # - /path/to/downloadclient-downloads:/downloads #optional
+    ports:
+      - 8787:8787
+    restart: unless-stopped
+    networks:
+      - warez-network
